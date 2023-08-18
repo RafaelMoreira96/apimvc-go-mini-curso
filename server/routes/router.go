@@ -16,6 +16,7 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 			book.GET("/read_all", controllers.ReadAllBooks)
 			book.PUT("/update", controllers.UpdateBook)
 			book.DELETE("/delete/:id", controllers.DeleteBook)
+			book.POST("/create_csv", controllers.CreateBooksByCSV)
 		}
 	}
 

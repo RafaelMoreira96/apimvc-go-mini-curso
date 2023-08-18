@@ -1,4 +1,4 @@
-# Mini-Curso: Desenvolvimento de API em Go com Gin e GORM
+# Minicurso: Desenvolvimento de API em Go com Gin e GORM
 
 ## Duração: 2 horas
 
@@ -57,6 +57,13 @@ Aqui está um guia passo a passo para instalar o Go na sua máquina:
     go mod init nome-do-seu-projeto
     ```
 
+7. **Instalar as dependências que serão utilizadas ao longo do minicurso**: Agora, com quase tudo pronto, vamos executar os comandos necessários para importarmos as depêndencias.
+    ```bash
+    go get github.com/gin-gonic/gin
+    go get gorm.io/gorm
+    go get gorm.io/driver/sqlite
+    ```
+    
 Agora você está pronto para começar a desenvolver em Go!
 
 Lembre-se de que os comandos mencionados acima podem exigir permissões de administrador (root), dependendo das configurações do seu sistema. Certifique-se de entender o que cada comando faz antes de executá-lo.

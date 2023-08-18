@@ -3,6 +3,9 @@ package controllers
 import (
 	"catalogolivros/database"
 	"catalogolivros/models"
+	"encoding/csv"
+	"io"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -136,4 +139,55 @@ func DeleteBook(c *gin.Context) {
 		return
 	}
 	c.Status(204)
+}
+
+func CreateBooksByCSV(c *gin.Context) {
+	file, err := os.Open("files/books.csv")
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Erro ao abrir o arquivo CSV"})
+		return
+	}
+	defer file.Close()
+
+	db := database.GetDatabase()
+	tx := db.Begin()
+
+	reader := csv.NewReader(file)
+	createdCount := 0
+	errorCount := 0
+
+	for {
+		row, err := reader.Read()
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			c.JSON(500, gin.H{"error": "Erro ao ler o arquivo CSV"})
+			tx.Rollback()
+			return
+		}
+
+		book := models.Book{
+			Title:  row[1],
+			Author: row[2],
+			Genre:  row[3],
+		}
+
+		if err := tx.Create(&book).Error; err != nil {
+			errorCount++
+			continue
+		}
+
+		createdCount++
+	}
+
+	if errorCount > 0 {
+		tx.Rollback()
+		c.JSON(500, gin.H{"error": "Erro ao salvar alguns livros no banco de dados"})
+		return
+	}
+
+	tx.Commit()
+
+	c.JSON(200, gin.H{"message": "Importação concluída", "created": createdCount})
 }

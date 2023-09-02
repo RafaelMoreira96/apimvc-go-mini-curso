@@ -67,3 +67,34 @@ Aqui está um guia passo a passo para instalar o Go na sua máquina:
 Agora você está pronto para começar a desenvolver em Go!
 
 Lembre-se de que os comandos mencionados acima podem exigir permissões de administrador (root), dependendo das configurações do seu sistema. Certifique-se de entender o que cada comando faz antes de executá-lo.
+
+## Rotas da API
+### Criar um novo livro
+- **Método**: POST
+- **Rota**: `/api/v1/books/create`
+- **Controlador**: `controllers.CreateBook`
+
+### Ler um livro por ID
+- **Método**: GET
+- **Rota**: `/api/v1/books/read/:id`
+- **Controlador**: `controllers.ReadBook`
+
+### Ler todos os livros
+- **Método**: GET
+- **Rota**: `/api/v1/books/read_all`
+- **Controlador**: `controllers.ReadAllBooks`
+
+### Atualizar um livro
+- **Método**: PUT
+- **Rota**: `/api/v1/books/update`
+- **Controlador**: `controllers.UpdateBook`
+
+### Excluir um livro por ID
+- **Método**: DELETE
+- **Rota**: `/api/v1/books/delete/:id`
+- **Controlador**: `controllers.DeleteBook`
+
+### Criar livros a partir de um arquivo CSV
+- **Método**: POST
+- **Rota**: `/api/v1/books/create_csv`
+- **Controlador**: `controllers.CreateBooksByCSV`
